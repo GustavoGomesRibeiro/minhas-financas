@@ -2,6 +2,8 @@
   "expo": {
     "name": "minhas-financas",
     "slug": "minhas-financas",
+    "scheme": "minhas-financas",
+    "plugins": ["expo-apple-authentication"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
