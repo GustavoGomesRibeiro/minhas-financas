@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Button, Text, StyleSheet, View  } from 'react-native';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { ReceiveScreen } from '../routes/NavigationRoutes';
 
 import * as SecureStore from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser'
@@ -7,9 +8,11 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { ICredential } from '../interfaces/ICredential';
 
 
-  WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
 
 function useAuthentication() {
+    const navigation = useNavigation<ReceiveScreen>();
+
     const [appleAuthAvailable, setAppleAuthAvailable ] = useState(false);
     const [token, setToken] = useState<ICredential>();
 
@@ -33,12 +36,13 @@ function useAuthentication() {
         console.log(credentialState, 'return status of my authentication, i can validate the status on the documentation');
     }, []);
     
-    const logout = async () => {
+    const logout = useCallback(async () => {
         SecureStore.deleteItemAsync('apple-credentials-secure');
         setToken(undefined);
-    };
+        navigation.navigate('Login');
+    }, []);
     
-    const AppleAuthetication = useCallback(async () => {
+    const appleAuthentication = useCallback(async () => {
           try {
             const credential: any = await AppleAuthentication.signInAsync({
               requestedScopes: [
@@ -46,55 +50,33 @@ function useAuthentication() {
                 AppleAuthentication.AppleAuthenticationScope.EMAIL,
               ],
             });
-            console.log(credential);
             setToken(credential);
             SecureStore.setItemAsync('apple-credential-secure', JSON.stringify(credential));
+            navigation.navigate('Home');
           } catch (e) {
             console.log(e);
           }
     }, []);
     
-    const getAppleAuthentication = () => {
-      if (!token) {
-        return <AppleAuthentication.AppleAuthenticationButton
-        buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-        cornerRadius={5}
-        style={styles.button}
-        onPress={AppleAuthetication}
-      />    
-      } else {
-        return (
-          <View>
-            <Button title='Logout' onPress={logout}/>
-            <Button title='Get credential' onPress={getCredentialState}/>
-          </View>
-        )
-      }
-    }    
-
+    const value = useMemo(() => {
+      getCredentialState
+      logout
+      appleAuthentication
+      AppleAuthentication
+      appleAuthAvailable
+      token
+    }, [])
+    
     return ({
-        getAppleAuthentication,
         getCredentialState,
         logout,
+        appleAuthentication,
         AppleAuthentication,
         appleAuthAvailable,
         token,
+        value,
     })
 }
 
-const styles = StyleSheet.create({ 
-    button: {
-      width: 200,
-      height: 50,
-      marginTop: 16,
-      paddingVertical: 8,
-      borderWidth: 4,
-      borderColor: '#20232a',
-      borderRadius: 6,
-      backgroundColor: '#61dafb',
-      color: '#20232a',
-    },
-  }); 
 
 export { useAuthentication }

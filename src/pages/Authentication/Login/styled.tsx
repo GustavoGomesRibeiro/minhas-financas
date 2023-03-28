@@ -7,4 +7,5 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View``;
-export const Text2 = styled.Text``;
+
+export const Text = styled.Text``;

@@ -8,6 +8,32 @@
             "validProperties": "shadow-color,shadow-opacity,shadow-offset,elevation"
           }
         }
-      ]    
+      ],
+      // "jsx": "react",
+      // "strict": true,
+      "baseUrl": "./",
+      "paths": {
+        "@pages/*": [
+          "./src/pages/*"
+        ],
+        "@components/*": [
+          "./src/components/*"
+        ],
+        "@assets/*": [
+          "./src/assets/*"
+        ],
+        "@hooks/*": [
+          "./src/hooks/*"
+        ],
+        "@utils/*": [
+          "./src/utils/*"
+        ],
+        "@context/*": [
+          "./src/context/*"
+        ],
+        "@interfaces/*": [
+          "./src/interfaces/*"
+        ],
+      }          
   },
 }
