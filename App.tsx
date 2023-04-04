@@ -5,12 +5,10 @@ import AppProvider from './src/context/index';
 
 export default function App() {
   return (
-    <AppProvider>
-      <NavigationContainer>
-        <Router/>
-      </NavigationContainer>
-    </AppProvider>
+    <NavigationContainer>
+      <AppProvider>
+        <Router />
+      </AppProvider>
+    </NavigationContainer>
   );
 }
-
-
