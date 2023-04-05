@@ -1,6 +1,10 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
+interface Props {
+  text: string;
+}
+
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
 `;
@@ -36,15 +40,31 @@ const Border = styled.View`
   margin-right: 10px;
 `;
 
-const Description = styled.Text`
-  color: #b1b1b1;
-  font-size: 14px;
+const Description = styled.Text<Props>`
+  color: ${(props) => (props.text ? '#000' : '#b1b1b1')};
+  font-size: ${(props) => (props.text ? '20px' : '14px')};
+  padding: ${(props) => (props.text ? '0px 20px' : '0px')};
 `;
 
 const Value = styled.Text`
   color: #000;
   font-weight: bold;
   font-size: 16px;
+`;
+
+const Balance = styled.View``;
+
+const Transaction = styled.View`
+  background-color: #fdfdfd;
+  height: 50px;
+  margin: 10px 0px;
+  justify-content: center;
+  align-items: flex-end;
+`;
+
+const Divider = styled.View`
+  height: 2px;
+  background-color: #f3f5f4;
 `;
 
 export {
@@ -60,4 +80,7 @@ export {
   Border,
   Description,
   Value,
+  Balance,
+  Transaction,
+  Divider,
 };
