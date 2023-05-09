@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 
 import ComponentSpending from '@components/Spending/index';
 import ComponentInput from '@components/Input/index';
@@ -16,10 +16,25 @@ export default function Spending() {
     setIsEnabled((event) => !event);
   };
 
-  const addNewValue = (value: any) => {
-    setAllBalance([...allBalance, { balance: value }]);
-    setPrice('');
-  };
+  const addNewValue = useCallback(
+    (value: any) => {
+      setAllBalance([...allBalance, { balance: value }]);
+      sumBalances(allBalance);
+      setPrice('');
+    },
+    [allBalance, setAllBalance],
+  );
+
+  const sumBalances = useCallback(
+    (balances: any) => {
+      const removeComma = balances.map((item) => item.balance.replace(/,/g, '.'));
+      const removeCaracters = removeComma.map((item) => parseInt(item.replace(/R|,|[!@#$%^&*]/g, '')));
+      const balance = removeCaracters.slice(1);
+
+      setBalance(balance.reduce((result, balance) => result + balance, 0));
+    },
+    [balance, setBalance],
+  );
 
   const formatBalance = balance.toFixed(2);
 
@@ -44,22 +59,25 @@ export default function Spending() {
             </S.Button>
           </S.GeralBalance>
 
-          <S.Divider />
-
           <S.Balance>
-            <S.ContainerDetails>
-              {allBalance.map((balance) => {
+            {allBalance.map((value) => {
+              if (value.balance) {
                 return (
-                  <>
-                    <S.Transaction key={Math.random()}>
-                      <S.Description text="balance">{balance.balance}</S.Description>
-                    </S.Transaction>
+                  <S.ContainerDetails key={Math.random()}>
+                    <S.ContainerBalance>
+                      <S.DescriptionBalance>Cartão de crédito</S.DescriptionBalance>
+                      <S.Transaction>
+                        <S.DescriptionBalance text="balance">
+                          {isEnabled ? value.balance : 'R$ -------'}
+                        </S.DescriptionBalance>
+                      </S.Transaction>
+                    </S.ContainerBalance>
 
                     <S.Divider />
-                  </>
+                  </S.ContainerDetails>
                 );
-              })}
-            </S.ContainerDetails>
+              }
+            })}
           </S.Balance>
         </ComponentSpending>
 

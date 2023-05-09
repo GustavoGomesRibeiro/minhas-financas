@@ -7,6 +7,7 @@ interface Props {
 
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
+  margin: 0px 10px;
 `;
 
 const Container = styled.ScrollView`
@@ -42,8 +43,14 @@ const Border = styled.View`
 
 const Description = styled.Text<Props>`
   color: ${(props) => (props.text ? '#000' : '#b1b1b1')};
-  font-size: ${(props) => (props.text ? '20px' : '14px')};
+  font-size: ${(props) => (props.text ? '18px' : '14px')};
   padding: ${(props) => (props.text ? '0px 20px' : '0px')};
+`;
+
+const DescriptionBalance = styled.Text<Props>`
+  color: ${(props) => (props.text ? '#2d8ce6' : '#000')};
+  font-size: ${(props) => (props.text ? '18px' : '18px')};
+  font-weight: ${(props) => (props.text ? '900' : '500')};
 `;
 
 const Value = styled.Text`
@@ -53,6 +60,12 @@ const Value = styled.Text`
 `;
 
 const Balance = styled.View``;
+
+const ContainerBalance = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Transaction = styled.View`
   background-color: #fdfdfd;
@@ -79,8 +92,10 @@ export {
   ContainerDetails,
   Border,
   Description,
+  DescriptionBalance,
   Value,
   Balance,
+  ContainerBalance,
   Transaction,
   Divider,
 };

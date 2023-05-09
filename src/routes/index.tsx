@@ -8,7 +8,8 @@ const Router = () => {
 
   // console.log(token, 'token');
 
-  return !token ? <AuthRoute /> : <UserRoute />;
+  // return !token ? <AuthRoute /> : <UserRoute />;
+  return <UserRoute />;
 };
 
 export default Router;
