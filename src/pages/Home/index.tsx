@@ -1,10 +1,12 @@
 import React from 'react';
 import { useAuthentication } from '@hooks/useAuthentication';
+import { useConsumeApi } from '@hooks/useConsumeApi';
 
 import * as S from './styled';
 
 export default function Home() {
   const { logout } = useAuthentication();
+  const { amount } = useConsumeApi();
 
   return (
     <S.Container>
@@ -27,7 +29,7 @@ export default function Home() {
             </S.ValueSpending>
             <S.DescriptionSpeding>
               <S.Text>Receita</S.Text>
-              <S.TextDescription text="green">R$15000</S.TextDescription>
+              <S.TextDescription text="green">R${amount.income}</S.TextDescription>
             </S.DescriptionSpeding>
           </S.Description>
 
@@ -37,7 +39,7 @@ export default function Home() {
             </S.ValueSpending>
             <S.DescriptionSpeding>
               <S.Text>Despesas</S.Text>
-              <S.TextDescription text="red">R$5000</S.TextDescription>
+              <S.TextDescription text="red">R${amount.expense}</S.TextDescription>
             </S.DescriptionSpeding>
           </S.Description>
         </S.Values>

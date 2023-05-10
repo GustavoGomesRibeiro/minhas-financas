@@ -2,15 +2,17 @@ import { useState, useCallback } from 'react';
 
 import ComponentSpending from '@components/Spending/index';
 import ComponentInput from '@components/Input/index';
+import { useConsumeApi } from '@hooks/useConsumeApi';
 import { currencyInput } from '@utils/currency';
 
 import * as S from './styled';
 
 export default function Spending() {
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
-  const [balance, setBalance] = useState<number>(0);
   const [allBalance, setAllBalance] = useState([{ balance: '' }]);
   const [price, setPrice]: any = currencyInput();
+
+  const { amount } = useConsumeApi();
 
   const handleEnabled = () => {
     setIsEnabled((event) => !event);
@@ -19,24 +21,13 @@ export default function Spending() {
   const addNewValue = useCallback(
     (value: any) => {
       setAllBalance([...allBalance, { balance: value }]);
-      sumBalances(allBalance);
       setPrice('');
     },
     [allBalance, setAllBalance],
   );
 
-  const sumBalances = useCallback(
-    (balances: any) => {
-      const removeComma = balances.map((item) => item.balance.replace(/,/g, '.'));
-      const removeCaracters = removeComma.map((item) => parseInt(item.replace(/R|,|[!@#$%^&*]/g, '')));
-      const balance = removeCaracters.slice(1);
-
-      setBalance(balance.reduce((result, balance) => result + balance, 0));
-    },
-    [balance, setBalance],
-  );
-
-  const formatBalance = balance.toFixed(2);
+  if (!amount.expense) return;
+  const formatBalance = amount.expense.toFixed(2);
 
   return (
     <S.SafeAreaView>
