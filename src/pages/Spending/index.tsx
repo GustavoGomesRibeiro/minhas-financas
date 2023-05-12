@@ -1,7 +1,10 @@
 import { useState, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { ReceiveScreen } from '@routes/NavigationRoutes';
 
 import ComponentSpending from '@components/Spending/index';
 import ComponentInput from '@components/Input/index';
+import ComponentInputText from '@components/InputText/index';
 import { useConsumeApi } from '@hooks/useConsumeApi';
 import { currencyInput } from '@utils/currency';
 
@@ -10,8 +13,10 @@ import * as S from './styled';
 export default function Spending() {
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
   const [allBalance, setAllBalance] = useState([{ balance: '' }]);
+  const [expense, setExpense] = useState('');
   const [price, setPrice]: any = currencyInput();
 
+  const navigation = useNavigation<ReceiveScreen>();
   const { amount } = useConsumeApi();
 
   const handleEnabled = () => {
@@ -22,6 +27,7 @@ export default function Spending() {
     (value: any) => {
       setAllBalance([...allBalance, { balance: value }]);
       setPrice('');
+      setExpense('');
     },
     [allBalance, setAllBalance],
   );
@@ -31,10 +37,21 @@ export default function Spending() {
 
   return (
     <S.SafeAreaView>
+      <S.Header>
+        <S.ContainerButtons>
+          <S.ButtonRegister onPress={() => navigation.navigate('Expense')}>
+            <S.Text>Despesas</S.Text>
+          </S.ButtonRegister>
+          <S.ButtonRegister onPress={() => navigation.navigate('Expense')}>
+            <S.Text>Rendas</S.Text>
+          </S.ButtonRegister>
+        </S.ContainerButtons>
+      </S.Header>
       <S.Container>
-        <S.ContentAddSpending>
+        {/* <S.ContentAddSpending>
+          <ComponentInputText setExpense={setExpense} expense={expense} />
           <ComponentInput setPrice={setPrice} price={price} addNewValue={() => addNewValue(price)} />
-        </S.ContentAddSpending>
+        </S.ContentAddSpending> */}
 
         <ComponentSpending>
           <S.GeralBalance>

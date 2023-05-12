@@ -19,11 +19,25 @@ const useConsumeApi = () => {
     });
   }, []);
 
+  const addIncome = useCallback(async () => {
+    await apiServer.post('/income', {
+      name: 'teste',
+      value: 1800,
+    });
+  }, []);
+
+  const addExpense = useCallback(async () => {
+    await apiServer.post('/expense', {
+      name: 'teste',
+      value: 1800,
+    });
+  }, []);
+
   useEffect(() => {
     const response = getTotalAmount();
   }, []);
 
-  return { amount };
+  return { amount, addIncome, addExpense };
 };
 
 export { useConsumeApi };

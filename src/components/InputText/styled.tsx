@@ -9,13 +9,14 @@ const Container = styled.SafeAreaView`
 `;
 
 const Input = styled.TextInput`
-  flex: 1;
-  border-radius: 10px;
-  padding: 20px;
-  font-size: 30px;
-  color: #fff;
-  text-align: right;
-  font-weight: bold;
+  width: 300px;
+  background-color: #fff;
+  padding: 15px 10px;
+  font-size: 18px;
+  border: #fff;
+  border-bottom-color: #1890ff;
+  border-width: 1px;
+  margin-bottom: 20px;
 `;
 
 const ContentIcon = styled.TouchableOpacity`
@@ -28,6 +29,9 @@ const ContentIcon = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const Icon = styled(Feather)``;
+const Icon = styled(Feather)`
+  justify-content: center;
+  align-items: center;
+`;
 
 export { Container, Input, ContentIcon, Icon };

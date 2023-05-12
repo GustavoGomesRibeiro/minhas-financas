@@ -7,6 +7,7 @@ import RootStackParamList from './RootStackParamList/index';
 import Home from '@pages/Home/index';
 import Spending from '@pages/Spending/index';
 import Login from '@pages/Authentication/Login/index';
+import Expense from '@pages/Expense/index';
 
 const stackNavigator = createNativeStackNavigator<RootStackParamList>();
 const stackTab = createBottomTabNavigator<RootStackParamList>();
@@ -43,6 +44,7 @@ export default function userRoute() {
     <stackNavigator.Navigator>
       <stackNavigator.Screen name="Tab" component={Tab} options={{ headerShown: false }} />
       <stackNavigator.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <stackNavigator.Screen name="Expense" component={Expense} options={{ headerShown: false }} />
     </stackNavigator.Navigator>
   );
 }
