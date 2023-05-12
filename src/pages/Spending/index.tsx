@@ -3,34 +3,19 @@ import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
 
 import ComponentSpending from '@components/Spending/index';
-import ComponentInput from '@components/Input/index';
-import ComponentInputText from '@components/InputText/index';
 import { useConsumeApi } from '@hooks/useConsumeApi';
-import { currencyInput } from '@utils/currency';
 
 import * as S from './styled';
 
 export default function Spending() {
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
-  const [allBalance, setAllBalance] = useState([{ balance: '' }]);
-  const [expense, setExpense] = useState('');
-  const [price, setPrice]: any = currencyInput();
 
   const navigation = useNavigation<ReceiveScreen>();
-  const { amount } = useConsumeApi();
+  const { amount, listExpenses } = useConsumeApi();
 
   const handleEnabled = () => {
     setIsEnabled((event) => !event);
   };
-
-  const addNewValue = useCallback(
-    (value: any) => {
-      setAllBalance([...allBalance, { balance: value }]);
-      setPrice('');
-      setExpense('');
-    },
-    [allBalance, setAllBalance],
-  );
 
   if (!amount.expense) return;
   const formatBalance = amount.expense.toFixed(2);
@@ -47,12 +32,8 @@ export default function Spending() {
           </S.ButtonRegister>
         </S.ContainerButtons>
       </S.Header>
-      <S.Container>
-        {/* <S.ContentAddSpending>
-          <ComponentInputText setExpense={setExpense} expense={expense} />
-          <ComponentInput setPrice={setPrice} price={price} addNewValue={() => addNewValue(price)} />
-        </S.ContentAddSpending> */}
 
+      <S.Container>
         <ComponentSpending>
           <S.GeralBalance>
             <S.Details>
@@ -68,15 +49,15 @@ export default function Spending() {
           </S.GeralBalance>
 
           <S.Balance>
-            {allBalance.map((value) => {
-              if (value.balance) {
+            {listExpenses.list.map((expense) => {
+              if (expense.value) {
                 return (
                   <S.ContainerDetails key={Math.random()}>
                     <S.ContainerBalance>
                       <S.DescriptionBalance>Cartão de crédito</S.DescriptionBalance>
                       <S.Transaction>
                         <S.DescriptionBalance text="balance">
-                          {isEnabled ? value.balance : 'R$ -------'}
+                          {isEnabled ? `R$${expense.value}` : 'R$ -------'}
                         </S.DescriptionBalance>
                       </S.Transaction>
                     </S.ContainerBalance>

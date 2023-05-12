@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ITotalAmount } from '@interfaces/api';
+import { ITotalAmount, IListExpense } from '@interfaces/api';
 import apiServer from '../services/api';
 
 const useConsumeApi = () => {
   const [amount, setAmount] = useState<ITotalAmount | any>([]);
+  const [listExpenses, setListExpenses] = useState<IListExpense | any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
 
@@ -26,18 +27,30 @@ const useConsumeApi = () => {
     });
   }, []);
 
-  const addExpense = useCallback(async () => {
+  const addExpense = useCallback(async (value: any, description: any) => {
     await apiServer.post('/expense', {
-      name: 'teste',
-      value: 1800,
+      name: description,
+      value: value,
+    });
+  }, []);
+
+  const getExpense = useCallback(async () => {
+    await apiServer.get('/expense').then((response) => {
+      if (response.status) {
+        setListExpenses(response.data);
+        setLoading(false);
+      } else {
+        setError('Erro ao tentar trazer o detalhes da despesa!');
+        setLoading(false);
+      }
     });
   }, []);
 
   useEffect(() => {
-    const response = getTotalAmount();
+    Promise.all([getTotalAmount(), getExpense()]);
   }, []);
 
-  return { amount, addIncome, addExpense };
+  return { amount, listExpenses, loading, error, addIncome, addExpense };
 };
 
 export { useConsumeApi };

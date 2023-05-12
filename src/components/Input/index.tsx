@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as S from './styled';
 
-export default function ComponentInput({ setPrice, price, addNewValue }) {
+export default function ComponentInput({ setPrice, price }) {
   return (
     <S.Container>
       <S.Input

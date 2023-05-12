@@ -3,32 +3,29 @@ import { useState, useCallback } from 'react';
 import ComponentInput from '@components/Input';
 import Header from '@components/Header';
 import InputText from '@components/InputText';
-import { useNavigation } from '@react-navigation/native';
-import { ReceiveScreen } from '@routes/NavigationRoutes';
 import { currencyInput } from '@utils/currency';
+import { useConsumeApi } from '@hooks/useConsumeApi';
 
 import * as S from './styled';
 
 export default function Expense() {
-  const [allBalance, setAllBalance] = useState([{ balance: '' }]);
-  const [expense, setExpense] = useState('');
+  // const [allBalance, setAllBalance] = useState([{ balance: '' }]);
+  const [expense, setExpense] = useState<string>('');
   const [price, setPrice]: any = currencyInput();
 
-  const navigation = useNavigation<ReceiveScreen>();
+  const { addExpense } = useConsumeApi();
 
-  const addNewValue = useCallback(
-    (value: any) => {
-      setAllBalance([...allBalance, { balance: value }]);
-      setPrice('');
-      setExpense('');
-    },
-    [allBalance, setAllBalance],
-  );
+  const addNewValue = useCallback((value: any, description: string) => {
+    // setAllBalance([...allBalance, { balance: value }]);
+    addExpense(value, description);
+    setPrice('');
+    setExpense('');
+  }, []);
   return (
     <S.SafeAreaView>
       <S.ContainerHeader>
         <Header>
-          <ComponentInput setPrice={setPrice} price={price} addNewValue={() => addNewValue(price)} />
+          <ComponentInput setPrice={setPrice} price={price} />
         </Header>
       </S.ContainerHeader>
       <S.Main>
@@ -40,7 +37,7 @@ export default function Expense() {
         </S.ContainerItems>
 
         <S.Footer>
-          <S.ButtonRegister addNewValue={() => {}}>
+          <S.ButtonRegister onPress={() => addNewValue(price, expense)}>
             <S.Text>Adicionar</S.Text>
           </S.ButtonRegister>
         </S.Footer>
