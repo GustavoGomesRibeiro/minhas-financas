@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ITotalAmount, IListExpense } from '@interfaces/api';
+import { ITotalAmount, IListExpense, IListIncome } from '@interfaces/api';
 import apiServer from '../services/api';
 
 const useConsumeApi = () => {
   const [amount, setAmount] = useState<ITotalAmount | any>([]);
   const [listExpenses, setListExpenses] = useState<IListExpense | any>([]);
+  const [listIncomes, setListIncomes] = useState<IListIncome | any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
 
@@ -18,19 +19,35 @@ const useConsumeApi = () => {
         setLoading(false);
       }
     });
-  }, []);
+  }, [amount, setAmount]);
 
-  const addIncome = useCallback(async () => {
+  const addIncome = useCallback(async (price: string, description: string) => {
+    const value = price.replace(/[^a-zA-Z0-9]|[R]/g, '');
+
     await apiServer.post('/income', {
-      name: 'teste',
-      value: 1800,
+      name: description,
+      value: Number(value),
     });
   }, []);
 
-  const addExpense = useCallback(async (value: any, description: any) => {
+  const addExpense = useCallback(async (price: string, description: string) => {
+    const value = price.replace(/[^a-zA-Z0-9]|[R]/g, '');
+
     await apiServer.post('/expense', {
       name: description,
-      value: value,
+      value: Number(value),
+    });
+  }, []);
+
+  const getIncome = useCallback(async () => {
+    await apiServer.get('/income').then((response) => {
+      if (response.status) {
+        setListIncomes(response.data);
+        setLoading(false);
+      } else {
+        setError('Erro ao tentar trazer o detalhes da receita!');
+        setLoading(false);
+      }
     });
   }, []);
 
@@ -47,10 +64,10 @@ const useConsumeApi = () => {
   }, []);
 
   useEffect(() => {
-    Promise.all([getTotalAmount(), getExpense()]);
+    Promise.all([getTotalAmount(), getExpense(), getIncome()]);
   }, []);
 
-  return { amount, listExpenses, loading, error, addIncome, addExpense };
+  return { amount, listExpenses, listIncomes, loading, error, addIncome, addExpense };
 };
 
 export { useConsumeApi };

@@ -1,20 +1,24 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
 
-import ComponentSpending from '@components/Spending/index';
+import { ComponentExpense, ComponentIncome } from '@components/Spending/index';
 import { useConsumeApi } from '@hooks/useConsumeApi';
 
 import * as S from './styled';
 
 export default function Spending() {
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
+  const [isEnabledIncome, setIsEnabledIncome] = useState<boolean>(true);
 
   const navigation = useNavigation<ReceiveScreen>();
-  const { amount, listExpenses } = useConsumeApi();
+  const { amount, listExpenses, listIncomes } = useConsumeApi();
 
   const handleEnabled = () => {
     setIsEnabled((event) => !event);
+  };
+  const handleEnabledIncome = () => {
+    setIsEnabledIncome((event) => !event);
   };
 
   if (!amount.expense) return;
@@ -27,56 +31,25 @@ export default function Spending() {
           <S.ButtonRegister onPress={() => navigation.navigate('Expense')}>
             <S.Text>Despesas</S.Text>
           </S.ButtonRegister>
-          <S.ButtonRegister onPress={() => navigation.navigate('Expense')}>
+          <S.ButtonRegister onPress={() => navigation.navigate('Income')}>
             <S.Text>Rendas</S.Text>
           </S.ButtonRegister>
         </S.ContainerButtons>
       </S.Header>
 
       <S.Container>
-        <ComponentSpending>
-          <S.GeralBalance>
-            <S.Details>
-              <S.Border />
-              <S.ContainerDetails>
-                <S.Description>Despesas geral</S.Description>
-                <S.Value>{isEnabled ? `R$ ${formatBalance}` : 'R$ -------'}</S.Value>
-              </S.ContainerDetails>
-            </S.Details>
-            <S.Button onPress={handleEnabled}>
-              <S.Icon name={isEnabled ? 'eye' : 'eye-off'} size={26} color="#000" />
-            </S.Button>
-          </S.GeralBalance>
-
-          <S.Balance>
-            {listExpenses.list.map((expense) => {
-              if (expense.value) {
-                return (
-                  <S.ContainerDetails key={Math.random()}>
-                    <S.ContainerBalance>
-                      <S.DescriptionBalance>Cartão de crédito</S.DescriptionBalance>
-                      <S.Transaction>
-                        <S.DescriptionBalance text="balance">
-                          {isEnabled ? `R$${expense.value}` : 'R$ -------'}
-                        </S.DescriptionBalance>
-                      </S.Transaction>
-                    </S.ContainerBalance>
-
-                    <S.Divider />
-                  </S.ContainerDetails>
-                );
-              }
-            })}
-          </S.Balance>
-        </ComponentSpending>
-
-        <ComponentSpending>
-          <S.GeralBalance>
-            <S.Button onPress={handleEnabled}>
-              <S.Icon name={isEnabled ? 'eye' : 'eye-off'} size={26} color="#000" />
-            </S.Button>
-          </S.GeralBalance>
-        </ComponentSpending>
+        <ComponentExpense
+          listExpenses={listExpenses}
+          formatBalance={formatBalance}
+          isEnabled={isEnabled}
+          handleEnabled={handleEnabled}
+        />
+        <ComponentIncome
+          listIncomes={listIncomes}
+          isEnabledIncome={isEnabledIncome}
+          handleEnabledIncome={handleEnabledIncome}
+          formatBalance={formatBalance}
+        />
       </S.Container>
     </S.SafeAreaView>
   );

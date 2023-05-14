@@ -12,10 +12,10 @@ export default function Expense() {
   const [expense, setExpense] = useState<string>('');
   const [price, setPrice]: any = currencyInput();
 
-  const { addExpense } = useConsumeApi();
+  const { addIncome } = useConsumeApi();
 
   const addNewValue = useCallback((value: any, description: string) => {
-    addExpense(value, description);
+    addIncome(value, description);
     setPrice('');
     setExpense('');
   }, []);
