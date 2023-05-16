@@ -4,10 +4,6 @@ const SafeAreaView = styled.SafeAreaView`
   flex: 1;
 `;
 
-const Container = styled.ScrollView`
-  padding: 0px 20px;
-`;
-
 const Header = styled.View`
   background-color: #1b3065;
 `;
@@ -27,12 +23,43 @@ const ButtonRegister = styled.TouchableOpacity`
   border-radius: 20px;
 `;
 
-const ContentAddSpending = styled.View``;
-
 const Text = styled.Text`
   color: #fff;
   font-size: 16px;
   font-weight: bold;
 `;
 
-export { SafeAreaView, Container, Header, ContainerButtons, ButtonRegister, Text, ContentAddSpending };
+const Main = styled.ScrollView`
+  background-color: #fff;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  height: 270px;
+`;
+
+const ContainerButtonsTransactions = styled.View`
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin: 0 30px;
+`;
+
+const TextTransaction = styled.Text`
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  /* border-radius: 15px; */
+`;
+
+export {
+  SafeAreaView,
+  Main,
+  Header,
+  ContainerButtons,
+  ContainerButtonsTransactions,
+  ButtonRegister,
+  Text,
+  TextTransaction,
+};

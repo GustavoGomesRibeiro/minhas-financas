@@ -19,7 +19,7 @@ const useConsumeApi = () => {
         setLoading(false);
       }
     });
-  }, [amount, setAmount]);
+  }, [amount]);
 
   const addIncome = useCallback(async (price: string, description: string) => {
     const value = price.replace(/[^a-zA-Z0-9]|[R]/g, '');
@@ -49,7 +49,7 @@ const useConsumeApi = () => {
         setLoading(false);
       }
     });
-  }, []);
+  }, [listIncomes]);
 
   const getExpense = useCallback(async () => {
     await apiServer.get('/expense').then((response) => {
@@ -61,7 +61,7 @@ const useConsumeApi = () => {
         setLoading(false);
       }
     });
-  }, []);
+  }, [listExpenses]);
 
   useEffect(() => {
     Promise.all([getTotalAmount(), getExpense(), getIncome()]);

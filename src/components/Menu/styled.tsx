@@ -3,22 +3,12 @@ import { Feather } from '@expo/vector-icons';
 
 interface Props {
   text: string;
+  size: number;
 }
 
-const Container = styled.View`
-  height: auto;
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  shadow-color: #000;
-  shadow-offset: {
-    width: 0px;
-    height: 3px;
-  }
-  shadow-opacity: 0.27;
-  shadow-radius: 4.65px;
-  elevation: 6;
-  margin: 15px 0px;
+const Container = styled.View<Props>`
+  width: ${(props) => props.size};
+  padding: 0px 30px;
 `;
 
 const Icon = styled(Feather)``;
