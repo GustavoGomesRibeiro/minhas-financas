@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ITotalAmount, IListExpense, IListIncome } from '@interfaces/api';
+import { mockExpense } from '../mocks/expense/expense';
+import { mockIncome } from '../mocks/income/income';
+
 import apiServer from '../services/api';
 
 const useConsumeApi = () => {
@@ -40,27 +43,45 @@ const useConsumeApi = () => {
   }, []);
 
   const getIncome = useCallback(async () => {
-    await apiServer.get('/income').then((response) => {
-      if (response.status) {
-        setListIncomes(response.data);
-        setLoading(false);
-      } else {
-        setError('Erro ao tentar trazer o detalhes da receita!');
-        setLoading(false);
-      }
-    });
+    await apiServer
+      .get('/income')
+      .then((response) => {
+        if (response.status === 404) {
+          setListExpenses(mockIncome);
+        }
+
+        if (response.status) {
+          setListIncomes(response.data);
+          setLoading(false);
+        } else {
+          setError('Erro ao tentar trazer o detalhes da receita!');
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          setListExpenses(mockIncome);
+        }
+      });
   }, [listIncomes]);
 
   const getExpense = useCallback(async () => {
-    await apiServer.get('/expense').then((response) => {
-      if (response.status) {
-        setListExpenses(response.data);
-        setLoading(false);
-      } else {
-        setError('Erro ao tentar trazer o detalhes da despesa!');
-        setLoading(false);
-      }
-    });
+    await apiServer
+      .get('/expense')
+      .then((response) => {
+        if (response.status) {
+          setListExpenses(response.data);
+          setLoading(false);
+        } else {
+          setError('Erro ao tentar trazer o detalhes da despesa!');
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          setListExpenses(mockExpense);
+        }
+      });
   }, [listExpenses]);
 
   useEffect(() => {

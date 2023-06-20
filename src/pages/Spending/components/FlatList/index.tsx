@@ -16,6 +16,7 @@ export default function FlatListComponent({
   isEnabledIncome,
   handleEnabledIncome,
   listIncomes,
+  setTeste,
 }) {
   const navigation = useNavigation<ReceiveScreen>();
 
@@ -28,6 +29,11 @@ export default function FlatListComponent({
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { x } } }], {
         useNativeDriver: true,
       })}
+      onMomentumScrollEnd={(e) => {
+        // scroll animation ended
+        setTeste(e.nativeEvent.contentOffset.x);
+        console.log(e.nativeEvent.contentOffset.x);
+      }}
     >
       <S.ContainerFlatList>
         <S.GeralBalance>
@@ -44,7 +50,8 @@ export default function FlatListComponent({
         </S.GeralBalance>
 
         <FlatList
-          data={listExpenses.list}
+          // data={listExpenses.list}
+          data={listExpenses}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return <Expenses listExpenses={item} isEnabled={isEnabled} />;
@@ -72,7 +79,8 @@ export default function FlatListComponent({
         </S.GeralBalance>
 
         <FlatList
-          data={listIncomes.list}
+          // data={listIncomes.list}
+          data={listIncomes}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return <Incomes listIncomes={item} isEnabledIncome={isEnabledIncome} />;

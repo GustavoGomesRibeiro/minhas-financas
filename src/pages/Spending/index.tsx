@@ -1,13 +1,15 @@
 import { useState, useRef } from 'react';
-import { Animated, FlatList, Dimensions, View } from 'react-native';
+import { Animated, Dimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
 
-// import { ComponentExpense, ComponentIncome } from '@components/Spending/index';
-import { Expenses, Incomes } from '@components/Menu/index';
 import FlatListComponent from './components/FlatList';
 import Title from '@components/Title/index';
 import { useConsumeApi } from '@hooks/useConsumeApi';
+
+import { mockExpense } from '../../mocks/expense/expense';
+import { mockIncome } from '../../mocks/income/income';
+import { mockTotal } from '../../mocks/total/total';
 
 import * as S from './styled';
 
@@ -17,6 +19,7 @@ export default function Spending() {
 
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
   const [isEnabledIncome, setIsEnabledIncome] = useState<boolean>(true);
+  const [teste, setTeste] = useState<number>();
 
   const navigation = useNavigation<ReceiveScreen>();
   const { amount, listExpenses, listIncomes } = useConsumeApi();
@@ -29,8 +32,12 @@ export default function Spending() {
     setIsEnabledIncome((event) => !event);
   };
 
-  if (!amount.expense) return;
-  const formatBalance = amount.expense.toFixed(2);
+  // if (!amount.expense) return;
+  if (!mockTotal.expense) return;
+  const formatBalance = mockTotal.expense.toFixed(2);
+  // const formatBalance = amount.expense.toFixed(2);
+
+  // console.log(teste, '>><<');
 
   return (
     <>
@@ -50,7 +57,7 @@ export default function Spending() {
       <S.Main>
         <Title> Transações </Title>
         <S.ContainerButtonsTransactions size={width}>
-          <S.TextTransaction>Despesas</S.TextTransaction>
+          <S.TextTransaction style={{ color: teste === 0 ? 'white' : null }}>Despesas</S.TextTransaction>
           <S.TextTransaction>Rendas</S.TextTransaction>
         </S.ContainerButtonsTransactions>
 
@@ -59,11 +66,14 @@ export default function Spending() {
             {
               backgroundColor: '#386df7',
               marginHorizontal: 30,
-              height: 4,
-              width: width / 2,
-              borderRadius: 2,
-              marginTop: -4,
-              transform: [{ translateX: x.interpolate({ inputRange: [0, width], outputRange: [0, width / 2] }) }],
+              height: 40,
+              width: 100,
+              borderRadius: 20,
+              top: 80,
+              left: 5,
+              zIndex: -1,
+              position: 'absolute',
+              transform: [{ translateX: x.interpolate({ inputRange: [0, width], outputRange: [0, 100] }) }],
             },
           ]}
         />
@@ -73,9 +83,12 @@ export default function Spending() {
           formatBalance={formatBalance}
           handleEnabled={handleEnabled}
           handleEnabledIncome={handleEnabledIncome}
-          listExpenses={listExpenses}
+          listExpenses={mockExpense}
+          listIncomes={mockIncome}
+          // listExpenses={listExpenses}
+          // listIncomes={listIncomes}
           isEnabledIncome={isEnabledIncome}
-          listIncomes={listIncomes}
+          setTeste={setTeste}
         />
       </S.Main>
     </>

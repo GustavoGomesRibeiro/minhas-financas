@@ -1,4 +1,9 @@
 import styled from 'styled-components/native';
+import { Animated } from 'react-native';
+
+interface Props {
+  size: number;
+}
 
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -36,11 +41,13 @@ const Main = styled.ScrollView`
   height: 270px;
 `;
 
-const ContainerButtonsTransactions = styled.View`
-  justify-content: space-between;
+const ContainerButtonsTransactions = styled.View<Props>`
+  justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  margin: 0 30px;
+  margin: 0px 30px;
+  /* width: ${(props) => props.size}; */
+  /* width: 150px; */
 `;
 
 const TextTransaction = styled.Text`
@@ -49,8 +56,10 @@ const TextTransaction = styled.Text`
   font-weight: bold;
   justify-content: center;
   align-items: center;
-  padding: 5px;
-  /* border-radius: 15px; */
+  padding: 5px 15px;
+  margin: 0px 5px;
+  /* border-radius: 15px;
+  background-color: red; */
 `;
 
 export {

@@ -1,0 +1,40 @@
+export const mockExpense = [
+  {
+    created_at: 1683519282323,
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+  },
+  {
+    created_at: 1683519282323,
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+  },
+  {
+    created_at: 1683519282323,
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: '3',
+  },
+  {
+    created_at: 1683519405348,
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: 4,
+  },
+  {
+    created_at: '2023-05-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: 5,
+  },
+];
