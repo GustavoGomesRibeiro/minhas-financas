@@ -22,6 +22,12 @@ const Text = styled.Text`
   font-weight: bold;
 `;
 
+const ViewHeaderFlatList = styled.View`
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
 const Main = styled.ScrollView`
   background-color: #fff;
   border-top-left-radius: 35px;
@@ -34,6 +40,7 @@ const ContainerButtonsTransactions = styled.View<Props>`
   align-items: center;
   flex-direction: row;
   margin: 0px 30px;
+  /* width: ${(props) => props.size}; */
 `;
 
 const TextTransaction = styled.Text`
@@ -46,4 +53,4 @@ const TextTransaction = styled.Text`
   margin: 0px 5px;
 `;
 
-export { Content, SafeAreaView, Main, Header, ContainerButtonsTransactions, Text, TextTransaction };
+export { Content, SafeAreaView, ViewHeaderFlatList, Main, Header, ContainerButtonsTransactions, Text, TextTransaction };

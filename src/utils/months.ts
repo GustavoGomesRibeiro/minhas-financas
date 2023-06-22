@@ -2,47 +2,47 @@ export const MONTHS = [
   {
     id: 0,
     month: 'Janeiro',
-    dayMonth: 1,
+    dayMonth: '01',
   },
   {
     id: 1,
     month: 'Fevereiro',
-    dayMonth: 2,
+    dayMonth: '02',
   },
   {
     id: 2,
-    month: 'Marõ',
-    dayMonth: 3,
+    month: 'Março',
+    dayMonth: '03',
   },
   {
     id: 3,
     month: 'Abril',
-    dayMonth: 4,
+    dayMonth: '04',
   },
   {
     id: 4,
     month: 'Maio',
-    dayMonth: 5,
+    dayMonth: '05',
   },
   {
     id: 5,
     month: 'Junho',
-    dayMonth: 6,
+    dayMonth: '06',
   },
   {
     id: 6,
     month: 'Julho',
-    dayMonth: 7,
+    dayMonth: '07',
   },
   {
     id: 7,
     month: 'Agosto',
-    dayMonth: 8,
+    dayMonth: '08',
   },
   {
     id: 8,
     month: 'Setembro',
-    dayMonth: 9,
+    dayMonth: '09',
   },
   {
     id: 9,
