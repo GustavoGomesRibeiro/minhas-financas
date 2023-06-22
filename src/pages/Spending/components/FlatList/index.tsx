@@ -2,10 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { Animated, FlatList, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
+import { useListByMonth } from '@hooks/useListByMonth';
 
 import { Expenses, Incomes } from '@components/Menu/index';
-
-import { dayToMonth } from '@utils/transformMonth';
 
 import * as S from './styled';
 
@@ -22,6 +21,7 @@ export default function FlatListComponent({
   month,
 }) {
   const navigation = useNavigation<ReceiveScreen>();
+  const { listExpensesByMonth, listIncomesByMonth } = useListByMonth();
 
   const { width } = Dimensions.get('screen');
 
@@ -32,46 +32,11 @@ export default function FlatListComponent({
     setIndex(index);
   };
 
-  const listExpensesByMonth = useMemo(() => {
-    const separatedExpenses = {};
-
-    listExpenses.forEach((expense) => {
-      const createdAt = new Date(expense.created_at);
-      const month = createdAt.getMonth() + 1;
-      const nameMonth = dayToMonth(month);
-
-      if (!separatedExpenses[month]) {
-        separatedExpenses[nameMonth] = [expense];
-      } else {
-        separatedExpenses[nameMonth].push(expense);
-      }
-    });
-
-    return separatedExpenses;
-  }, []);
-
-  const listIncomesByMonth = useMemo(() => {
-    const separatedIncomes = {};
-
-    listExpenses.forEach((income) => {
-      const createdAt = new Date(income.created_at);
-      const month = createdAt.getMonth() + 1;
-      const nameMonth = dayToMonth(month);
-
-      if (!separatedIncomes[month]) {
-        separatedIncomes[nameMonth] = [income];
-      } else {
-        separatedIncomes[nameMonth].push(income);
-      }
-    });
-
-    return separatedIncomes;
-  }, []);
-
   return (
     <Animated.ScrollView
       horizontal
       showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
       pagingEnabled={true}
       scrollEventThrottle={16}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { x } } }], {
@@ -79,7 +44,7 @@ export default function FlatListComponent({
       })}
       onMomentumScrollEnd={_onMomentumScrollEnd}
     >
-      <S.ContainerFlatList>
+      <S.ContainerFlatList size={width}>
         <S.GeralBalance>
           <S.Details>
             <S.Border />
@@ -110,14 +75,9 @@ export default function FlatListComponent({
             return <Expenses listExpenses={item} isEnabled={isEnabled} />;
           }}
         />
-        {/* <S.ContainerButtonResume>
-          <S.ButtonGeneralResume onPress={() => navigation.navigate('Home')}>
-            <S.DescriptionButton>Ver valores</S.DescriptionButton>
-          </S.ButtonGeneralResume>
-        </S.ContainerButtonResume> */}
       </S.ContainerFlatList>
 
-      <S.ContainerFlatList>
+      <S.ContainerFlatList size={width}>
         <S.GeralBalance>
           <S.Details>
             <S.Border />
@@ -148,11 +108,6 @@ export default function FlatListComponent({
             return <Incomes listIncomes={item} isEnabledIncome={isEnabledIncome} />;
           }}
         />
-        {/* <S.ContainerButtonResume>
-          <S.ButtonGeneralResume onPress={() => navigation.navigate('Home')}>
-            <S.DescriptionButton>Ver valores</S.DescriptionButton>
-          </S.ButtonGeneralResume>
-        </S.ContainerButtonResume> */}
       </S.ContainerFlatList>
     </Animated.ScrollView>
   );

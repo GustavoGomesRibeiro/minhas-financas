@@ -52,8 +52,6 @@ export default function Spending() {
           <Select month={month} setMonth={setMonth} />
         </S.ViewHeaderFlatList>
         <S.ContainerButtonsTransactions size={width}>
-          {/* <S.TextTransaction style={{ color: index === 0 ? 'white' : 'black' }}>Despesas</S.TextTransaction>
-          <S.TextTransaction style={{ color: index === 1 ? 'white' : 'black' }}>Rendas</S.TextTransaction> */}
           <S.TextTransaction>Despesas</S.TextTransaction>
           <S.TextTransaction>Rendas</S.TextTransaction>
           <S.TextTransaction>Budget</S.TextTransaction>
@@ -66,14 +64,7 @@ export default function Spending() {
               backgroundColor: '#19191A',
               width: width / 4,
               height: 3.5,
-              // marginHorizontal: 40,
-              // height: 40,
-              // width: 100,
-              // borderRadius: 20,
-              // top: 80,
-              // left: 5,
-              // zIndex: -1,
-              // position: 'absolute',
+              marginHorizontal: 15,
               transform: [{ translateX: x.interpolate({ inputRange: [0, width], outputRange: [0, width / 4] }) }],
             },
           ]}

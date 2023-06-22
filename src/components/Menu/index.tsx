@@ -4,8 +4,6 @@ import { ReceiveScreen } from '@routes/NavigationRoutes';
 import { Dimensions } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { ISpendingExpense, ISpendingIncome } from '@interfaces/api/ISpending';
-
 import * as S from './styled';
 
 const Incomes = ({ listIncomes, isEnabledIncome }) => {

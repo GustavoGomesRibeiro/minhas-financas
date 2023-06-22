@@ -114,27 +114,8 @@ const Icon = styled(Feather)``;
 
 const Button = styled.TouchableOpacity``;
 
-const ContainerFlatList = styled.View``;
-
-const ContainerButtonResume = styled.View`
-  justify-content: center;
-  align-items: center;
-  margin: 15px 0px;
-`;
-
-const ButtonGeneralResume = styled.TouchableOpacity`
-  height: 50px;
-  width: 250px;
-  background-color: #386df7;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DescriptionButton = styled.Text`
-  color: #fff;
-  font-weight: bold;
-  font-size: 18px;
+const ContainerFlatList = styled.View<Props>`
+  width: ${(props) => props.size};
 `;
 
 const ViewAdd = styled.View`
@@ -190,9 +171,6 @@ export {
   Icon,
   Button,
   ContainerFlatList,
-  ButtonGeneralResume,
-  ContainerButtonResume,
-  DescriptionButton,
   ViewAdd,
   ViewIcon,
   ButtonAdd,

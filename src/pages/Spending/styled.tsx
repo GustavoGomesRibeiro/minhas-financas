@@ -39,7 +39,6 @@ const ContainerButtonsTransactions = styled.View<Props>`
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  margin: 0px 30px;
   /* width: ${(props) => props.size}; */
 `;
 
