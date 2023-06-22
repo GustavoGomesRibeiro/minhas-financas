@@ -47,10 +47,10 @@ const ButtonRegister = styled.TouchableOpacity`
 
 const ContentAddSpending = styled.View``;
 
-const Text = styled.Text`
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
+const Text = styled.Text<Props>`
+  color: ${(props) => (props.text ? '#000' : '#fff')};
+  font-size: ${(props) => (props.text ? '17px' : '16px')};
+  font-weight: ${(props) => (props.text ? '500' : 'bold')};
 `;
 
 const TextTransaction = styled.Text`
@@ -60,7 +60,6 @@ const TextTransaction = styled.Text`
   justify-content: center;
   align-items: center;
   padding: 5px;
-  /* border-radius: 15px; */
 `;
 
 const Main = styled.ScrollView`
@@ -138,6 +137,37 @@ const DescriptionButton = styled.Text`
   font-size: 18px;
 `;
 
+const ViewAdd = styled.View`
+  padding: 20px;
+`;
+
+const ButtonAdd = styled.TouchableOpacity`
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: #fff;
+  height: 70px;
+  padding: 20px;
+  border-radius: 15px;
+  shadow-color: #000;
+  shadow-offset: {
+    width: 0px;
+    height: 3px;
+  }
+  shadow-opacity: 0.27;
+  shadow-radius: 4.65px;
+  elevation: 6;
+`;
+
+const ViewIcon = styled.View`
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+`;
+
 export {
   SafeAreaView,
   Main,
@@ -163,4 +193,7 @@ export {
   ButtonGeneralResume,
   ContainerButtonResume,
   DescriptionButton,
+  ViewAdd,
+  ViewIcon,
+  ButtonAdd,
 };

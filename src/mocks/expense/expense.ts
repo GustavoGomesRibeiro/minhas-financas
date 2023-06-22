@@ -37,4 +37,28 @@ export const mockExpense = [
     value: 1800,
     id: 5,
   },
+  {
+    created_at: '2023-06-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: 6,
+  },
+  {
+    created_at: '2023-01-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: 7,
+  },
+  {
+    created_at: '2023-02-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Cartão de Crédito',
+    value: 1800,
+    id: 8,
+  },
 ];

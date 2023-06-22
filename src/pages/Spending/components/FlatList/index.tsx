@@ -1,9 +1,11 @@
-import React from 'react';
-import { Animated, FlatList } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { Animated, FlatList, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
 
 import { Expenses, Incomes } from '@components/Menu/index';
+
+import { dayToMonth } from '@utils/transformMonth';
 
 import * as S from './styled';
 
@@ -16,9 +18,44 @@ export default function FlatListComponent({
   isEnabledIncome,
   handleEnabledIncome,
   listIncomes,
-  setTeste,
+  setIndex,
 }) {
+  const [month, setMonth] = useState('Janeiro');
+  const [teste, setTeste] = useState({});
   const navigation = useNavigation<ReceiveScreen>();
+
+  const { width } = Dimensions.get('screen');
+
+  const _onMomentumScrollEnd = ({ nativeEvent }: any) => {
+    const position = nativeEvent.contentOffset.x;
+    const index = Math.round(position / width);
+
+    setIndex(index);
+  };
+
+  const getMonth = useCallback(() => {
+    const separatedExpenses = {};
+
+    listExpenses.forEach((expense) => {
+      const createdAt = new Date(expense.created_at);
+      const month = createdAt.getMonth() + 1;
+      const nameMonth = dayToMonth(month);
+
+      if (!separatedExpenses[month]) {
+        separatedExpenses[nameMonth] = [expense];
+      } else {
+        separatedExpenses[nameMonth].push(expense);
+      }
+    });
+
+    setTeste(separatedExpenses);
+
+    return separatedExpenses;
+  }, []);
+
+  // getMonth();
+
+  console.log(teste, '>>><<<<<');
 
   return (
     <Animated.ScrollView
@@ -29,11 +66,7 @@ export default function FlatListComponent({
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { x } } }], {
         useNativeDriver: true,
       })}
-      onMomentumScrollEnd={(e) => {
-        // scroll animation ended
-        setTeste(e.nativeEvent.contentOffset.x);
-        console.log(e.nativeEvent.contentOffset.x);
-      }}
+      onMomentumScrollEnd={_onMomentumScrollEnd}
     >
       <S.ContainerFlatList>
         <S.GeralBalance>
@@ -48,6 +81,15 @@ export default function FlatListComponent({
             <S.Icon name={isEnabled ? 'eye' : 'eye-off'} size={26} color="#000" />
           </S.Button>
         </S.GeralBalance>
+
+        <S.ViewAdd>
+          <S.ButtonAdd onPress={() => navigation.navigate('Expense')}>
+            <S.Text text>Adicionar nova despesa</S.Text>
+            <S.ViewIcon>
+              <S.Icon name="plus" size={26} color="#000" />
+            </S.ViewIcon>
+          </S.ButtonAdd>
+        </S.ViewAdd>
 
         <FlatList
           // data={listExpenses.list}
@@ -77,6 +119,15 @@ export default function FlatListComponent({
             <S.Icon name={isEnabledIncome ? 'eye' : 'eye-off'} size={26} color="#000" />
           </S.Button>
         </S.GeralBalance>
+
+        <S.ViewAdd>
+          <S.ButtonAdd onPress={() => navigation.navigate('Income')}>
+            <S.Text text>Adicionar nova renda</S.Text>
+            <S.ViewIcon>
+              <S.Icon name="plus" size={26} color="#000" />
+            </S.ViewIcon>
+          </S.ButtonAdd>
+        </S.ViewAdd>
 
         <FlatList
           // data={listIncomes.list}

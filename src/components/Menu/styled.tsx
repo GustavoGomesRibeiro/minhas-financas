@@ -43,9 +43,16 @@ const Description = styled.Text<Props>`
 `;
 
 const DescriptionBalance = styled.Text<Props>`
-  color: ${(props) => (props.text ? '#2d8ce6' : '#000')};
-  font-size: ${(props) => (props.text ? '18px' : '18px')};
-  font-weight: ${(props) => (props.text ? '900' : '500')};
+  color: #000;
+  font-size: ${(props) => (props.text ? '16px' : '18px')};
+  font-weight: ${(props) => (props.text ? '700' : '400')};
+  font-family: 'Archivo_400Regular';
+`;
+
+const Date = styled.Text`
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
 `;
 
 const Value = styled.Text`
@@ -62,17 +69,21 @@ const ContainerBalance = styled.View`
   align-items: center;
 `;
 
+const ContentIcon = styled.View`
+  background-color: #fccde5;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Transaction = styled.View`
   background-color: #fdfdfd;
   height: 50px;
   margin: 10px 0px;
   justify-content: center;
   align-items: flex-end;
-`;
-
-const Divider = styled.View`
-  height: 2px;
-  background-color: #f3f5f4;
 `;
 
 const ContainerButtonResume = styled.View`
@@ -107,12 +118,13 @@ export {
   Border,
   Description,
   DescriptionBalance,
+  Date,
   Value,
   Balance,
   ContainerBalance,
   Transaction,
-  Divider,
   ContainerButtonResume,
   ButtonGeneralResume,
   DescriptionButton,
+  ContentIcon,
 };

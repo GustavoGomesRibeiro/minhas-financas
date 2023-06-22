@@ -19,7 +19,8 @@ export default function Spending() {
 
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
   const [isEnabledIncome, setIsEnabledIncome] = useState<boolean>(true);
-  const [teste, setTeste] = useState<number>();
+  // const [teste, setTeste] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
 
   const navigation = useNavigation<ReceiveScreen>();
   const { amount, listExpenses, listIncomes } = useConsumeApi();
@@ -37,34 +38,25 @@ export default function Spending() {
   const formatBalance = mockTotal.expense.toFixed(2);
   // const formatBalance = amount.expense.toFixed(2);
 
-  // console.log(teste, '>><<');
-
   return (
-    <>
+    <S.Content>
       <S.SafeAreaView>
-        <S.Header>
-          <S.ContainerButtons>
-            <S.ButtonRegister onPress={() => navigation.navigate('Expense')}>
-              <S.Text>Despesas</S.Text>
-            </S.ButtonRegister>
-            <S.ButtonRegister onPress={() => navigation.navigate('Income')}>
-              <S.Text>Rendas</S.Text>
-            </S.ButtonRegister>
-          </S.ContainerButtons>
-        </S.Header>
+        <S.Header></S.Header>
       </S.SafeAreaView>
 
       <S.Main>
         <Title> Transações </Title>
         <S.ContainerButtonsTransactions size={width}>
-          <S.TextTransaction style={{ color: teste === 0 ? 'white' : null }}>Despesas</S.TextTransaction>
-          <S.TextTransaction>Rendas</S.TextTransaction>
+          <S.TextTransaction style={{ color: index === 0 ? 'white' : 'black' }}>Despesas</S.TextTransaction>
+          <S.TextTransaction style={{ color: index === 1 ? 'white' : 'black' }}>Rendas</S.TextTransaction>
+          <S.TextTransaction>Budget</S.TextTransaction>
+          <S.TextTransaction>Metas</S.TextTransaction>
         </S.ContainerButtonsTransactions>
 
         <Animated.View
           style={[
             {
-              backgroundColor: '#386df7',
+              backgroundColor: '#19191A',
               marginHorizontal: 30,
               height: 40,
               width: 100,
@@ -73,7 +65,7 @@ export default function Spending() {
               left: 5,
               zIndex: -1,
               position: 'absolute',
-              transform: [{ translateX: x.interpolate({ inputRange: [0, width], outputRange: [0, 100] }) }],
+              transform: [{ translateX: x.interpolate({ inputRange: [0, width], outputRange: [0, width / 4] }) }],
             },
           ]}
         />
@@ -88,9 +80,9 @@ export default function Spending() {
           // listExpenses={listExpenses}
           // listIncomes={listIncomes}
           isEnabledIncome={isEnabledIncome}
-          setTeste={setTeste}
+          setIndex={setIndex}
         />
       </S.Main>
-    </>
+    </S.Content>
   );
 }

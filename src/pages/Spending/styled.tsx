@@ -5,28 +5,16 @@ interface Props {
   size: number;
 }
 
+const Content = styled.View`
+  flex: 1;
+  background-color: #19191a;
+`;
+
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
 `;
 
-const Header = styled.View`
-  background-color: #1b3065;
-`;
-
-const ContainerButtons = styled.View`
-  height: 200px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  padding: 15px;
-`;
-
-const ButtonRegister = styled.TouchableOpacity`
-  margin: 0px 10px;
-  background-color: #386df7;
-  padding: 10px;
-  border-radius: 20px;
-`;
+const Header = styled.View``;
 
 const Text = styled.Text`
   color: #fff;
@@ -46,8 +34,6 @@ const ContainerButtonsTransactions = styled.View<Props>`
   align-items: center;
   flex-direction: row;
   margin: 0px 30px;
-  /* width: ${(props) => props.size}; */
-  /* width: 150px; */
 `;
 
 const TextTransaction = styled.Text`
@@ -58,17 +44,6 @@ const TextTransaction = styled.Text`
   align-items: center;
   padding: 5px 15px;
   margin: 0px 5px;
-  /* border-radius: 15px;
-  background-color: red; */
 `;
 
-export {
-  SafeAreaView,
-  Main,
-  Header,
-  ContainerButtons,
-  ContainerButtonsTransactions,
-  ButtonRegister,
-  Text,
-  TextTransaction,
-};
+export { Content, SafeAreaView, Main, Header, ContainerButtonsTransactions, Text, TextTransaction };
