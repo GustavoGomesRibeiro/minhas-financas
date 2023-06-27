@@ -5,6 +5,7 @@ export const mockExpense = [
     disabled_at: null,
     name: 'Cartão de Crédito',
     value: 1800,
+    id: 1,
   },
   {
     created_at: 1683519282323,
@@ -12,6 +13,7 @@ export const mockExpense = [
     disabled_at: null,
     name: 'Cartão de Crédito',
     value: 1800,
+    id: 2,
   },
   {
     created_at: 1683519282323,
@@ -19,7 +21,7 @@ export const mockExpense = [
     disabled_at: null,
     name: 'Cartão de Crédito',
     value: 1800,
-    id: '3',
+    id: 3,
   },
   {
     created_at: 1683519405348,
@@ -60,5 +62,29 @@ export const mockExpense = [
     name: 'Cartão de Crédito',
     value: 1800,
     id: 8,
+  },
+  {
+    created_at: '2023-02-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Boticario',
+    value: 2000,
+    id: 9,
+  },
+  {
+    created_at: '2023-02-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Padaria do zé',
+    value: 500,
+    id: 10,
+  },
+  {
+    created_at: '2023-02-08T04:23:49.916Z',
+    updated_at: null,
+    disabled_at: null,
+    name: 'Ifood',
+    value: 300,
+    id: 11,
   },
 ];

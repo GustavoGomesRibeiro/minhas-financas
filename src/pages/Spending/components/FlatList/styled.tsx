@@ -149,6 +149,11 @@ const ViewIcon = styled.View`
   border-radius: 15px;
 `;
 
+const Chart = styled.View`
+  justify-items: center;
+  align-items: center;
+`;
+
 export {
   SafeAreaView,
   Main,
@@ -174,4 +179,5 @@ export {
   ViewAdd,
   ViewIcon,
   ButtonAdd,
+  Chart,
 };

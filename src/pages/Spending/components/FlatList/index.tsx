@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated, FlatList, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ReceiveScreen } from '@routes/NavigationRoutes';
 import { useListByMonth } from '@hooks/useListByMonth';
+import { VictoryPie, VictoryLabel, VictoryTheme } from 'victory-native';
 
 import { Expenses, Incomes } from '@components/Menu/index';
 
@@ -22,6 +23,7 @@ export default function FlatListComponent({
 }) {
   const navigation = useNavigation<ReceiveScreen>();
   const { listExpensesByMonth, listIncomesByMonth } = useListByMonth();
+  const [dataChartExpenses, setDataChartExpenses] = useState();
 
   const { width } = Dimensions.get('screen');
 
@@ -31,6 +33,12 @@ export default function FlatListComponent({
 
     setIndex(index);
   };
+
+  useEffect(() => {
+    setDataChartExpenses(listExpensesByMonth[month]), [dataChartExpenses];
+  });
+
+  // console.log(listExpensesByMonth[month]);
 
   return (
     <Animated.ScrollView
@@ -57,6 +65,26 @@ export default function FlatListComponent({
             <S.Icon name={isEnabled ? 'eye' : 'eye-off'} size={26} color="#000" />
           </S.Button>
         </S.GeralBalance>
+
+        <S.Chart>
+          {month ? (
+            <>
+              <VictoryPie
+                colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+                padAngle={({ datum }) => datum.y}
+                // innerRadius={100}
+                innerRadius={70}
+                labelRadius={100}
+                data={dataChartExpenses}
+                x={'name'}
+                y={'value'}
+                // labelComponent={
+                //   <VictoryLabel textAnchor="middle" verticalAnchor="middle" x={200} y={200} style={{ fontSize: 30 }} />
+                // }
+              />
+            </>
+          ) : null}
+        </S.Chart>
 
         <S.ViewAdd>
           <S.ButtonAdd onPress={() => navigation.navigate('Expense')}>

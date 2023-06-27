@@ -5,23 +5,59 @@ import { mockIncome } from '../mocks/income/income';
 import { dayToMonth } from '@utils/transformMonth';
 
 const useListByMonth = () => {
-  const listExpensesByMonth = useMemo(() => {
-    const separatedExpenses = {};
+  // const listExpensesByMonth2 = useMemo(() => {
+  //   const separatedExpenses = {};
 
-    mockExpense.forEach((expense) => {
+  //   mockExpense.reduce((acc, expense) => {
+  //     const createdAt = new Date(expense.created_at);
+  //     const month = createdAt.getMonth() + 1;
+  //     const nameMonth = dayToMonth(month);
+
+  //     if (!acc[month]) {
+  //       acc[month] = [expense];
+  //     } else {
+  //       acc[month].push(expense);
+  //     }
+
+  //     console.log(expense, '>>teste<<');
+  //     return acc;
+  //   });
+  // }, []);
+  const listExpensesByMonth = useMemo(() => {
+    return mockExpense.reduce((acc, expense) => {
       const createdAt = new Date(expense.created_at);
       const month = createdAt.getMonth() + 1;
       const nameMonth = dayToMonth(month);
 
-      if (!separatedExpenses[month]) {
-        separatedExpenses[nameMonth] = [expense];
+      if (!acc[nameMonth]) {
+        acc[nameMonth] = [expense];
       } else {
-        separatedExpenses[nameMonth].push(expense);
+        acc[nameMonth].push(expense);
       }
-    });
 
-    return separatedExpenses;
+      return acc;
+    }, {});
   }, []);
+
+  // console.log(listExpensesByMonth, '>>teste<<');
+
+  // const listExpensesByMonth2 = useMemo(() => {
+  //   const separatedExpenses = {};
+
+  //   mockExpense.forEach((expense) => {
+  //     const createdAt = new Date(expense.created_at);
+  //     const month = createdAt.getMonth() + 1;
+  //     const nameMonth = dayToMonth(month);
+
+  //     if (!separatedExpenses[month]) {
+  //       separatedExpenses[nameMonth] = [expense];
+  //     } else {
+  //       separatedExpenses[nameMonth].push(expense);
+  //     }
+  //   });
+
+  //   return separatedExpenses;
+  // }, []);
 
   const listIncomesByMonth = useMemo(() => {
     const separatedIncomes = {};
